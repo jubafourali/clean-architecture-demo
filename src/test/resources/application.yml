@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active:
+      - test
+  data:
+    mongodb:
+      database: embeddedDB
+
+  mongodb:
+    embedded:
+      version: 3.6.5
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              ReactiveMongoTemplate: DEBUG
