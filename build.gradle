@@ -14,20 +14,34 @@ configurations {
     }
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    implementation.exclude module: 'spring-boot-starter-tomcat'
+    implementation.exclude group: 'org.apache.tomcat'
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.springframework.boot:spring-boot-starter-graphql'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', classifier: 'osx-aarch_64'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
     testImplementation 'io.projectreactor:reactor-test'
     testImplementation 'org.springframework.graphql:spring-graphql-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.github.tomakehurst:wiremock:2.27.2'
 }
 
 tasks.named('test') {

@@ -16,4 +16,11 @@ public class UserDocument extends User {
         this.id = id;
     }
 
+    public User toUser() {
+        return new User(
+            this.id,
+            this.getName()
+        );
+    }
+
 }
