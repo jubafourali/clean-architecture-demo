@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
@@ -41,5 +42,23 @@ class MongodbUserStorageTest {
 
         Assertions.assertNotNull(response);
         Assertions.assertFalse(response);
+    }
+
+    @Test
+    void shouldReturnAllUsersWhenAUserExists() {
+        mongodbUserStorage.save(new User("Juba")).block();
+
+        List<User> response = mongodbUserStorage.getAll().collectList().block();
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(1, response.size());
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenNoUserExist() {
+        List<User> response = mongodbUserStorage.getAll().collectList().block();
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(0, response.size());
     }
 }

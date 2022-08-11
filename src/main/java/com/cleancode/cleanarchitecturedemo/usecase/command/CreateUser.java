@@ -21,7 +21,7 @@ public class CreateUser {
     }
 
     private Mono<Boolean> validate(UserInput input) {
-        return userStorage.exists(input.getName()).flatMap(exists -> {
+        return this.userStorage.exists(input.getName()).flatMap(exists -> {
             if (Boolean.TRUE.equals(exists)) return Mono.error(new IllegalArgumentException("User already exist"));
             return Mono.just(true);
         });

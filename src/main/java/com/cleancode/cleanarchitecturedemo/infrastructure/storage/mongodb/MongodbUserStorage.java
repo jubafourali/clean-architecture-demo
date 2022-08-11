@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -28,5 +29,10 @@ public class MongodbUserStorage implements UserStorage {
     public Mono<Boolean> exists(String name) {
         Criteria criteria = Criteria.where("name").is(name);
         return reactiveMongoTemplate.exists(Query.query(criteria), UserDocument.class);
+    }
+
+    @Override
+    public Flux<User> getAll() {
+        return mongodbUserRepository.findAll().map(UserDocument::toUser);
     }
 }
