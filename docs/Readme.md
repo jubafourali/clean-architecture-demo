@@ -9,11 +9,11 @@ As part of this workshop we will be following clean architecture and will be imp
         1. name, code, description
         2. code has to be unique and mandatory
 
-   | Given  | When | Then |
-   | ------------- | ------------- | -------- |
-   | Item with code item-1234 does not exist  | an item is created with missing name  | returns error stating "item name cannot be empty" |
-   | Item with code item-1234 does not exist  | an item is created with code item-1234  | item is successfully created |
-   | Item with code item-1234 exists  | and another item is created with code item-1234  | returns error stating "item with code already exists"  |
+   | Given  | When                                            | Then |
+   |-------------------------------------------------| ------------- | -------- |
+   | Item with code item-1234 does not exist  | an item is created with empty name              | returns error stating "item name cannot be empty" |
+   | Item with code item-1234 does not exist  | an item is created with code item-1234          | item is successfully created |
+   | Item with code item-1234 exists  | and another item is created with code item-1234 | returns error stating "item with code already exists"  |
 
 2. Should be able to list all saved items
 
