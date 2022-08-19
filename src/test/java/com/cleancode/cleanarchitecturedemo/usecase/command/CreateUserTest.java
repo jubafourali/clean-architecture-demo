@@ -1,4 +1,4 @@
-package com.cleancode.cleanarchitecturedemo.usecase;
+package com.cleancode.cleanarchitecturedemo.usecase.command;
 
 import com.cleancode.cleanarchitecturedemo.domain.User;
 import com.cleancode.cleanarchitecturedemo.storage.UserStorage;
