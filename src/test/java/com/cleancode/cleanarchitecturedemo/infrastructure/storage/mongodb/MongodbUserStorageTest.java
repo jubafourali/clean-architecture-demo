@@ -21,7 +21,7 @@ class MongodbUserStorageTest {
     MongodbUserRepository mongodbUserRepository;
 
     @BeforeEach
-    public void reset() {
+    void init() {
         mongodbUserRepository.deleteAll().block();
     }
 

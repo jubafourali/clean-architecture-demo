@@ -1,6 +1,7 @@
 package com.cleancode.cleanarchitecturedemo.infrastructure.controller;
 
 import com.cleancode.cleanarchitecturedemo.domain.User;
+import com.cleancode.cleanarchitecturedemo.infrastructure.storage.mongodb.MongodbUserRepository;
 import com.cleancode.cleanarchitecturedemo.infrastructure.storage.mongodb.MongodbUserStorage;
 import com.cleancode.cleanarchitecturedemo.usecase.input.UserInput;
 import org.junit.jupiter.api.Assertions;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -26,7 +28,15 @@ class UserControllerTest {
     MongodbUserStorage mongodbUserStorage;
 
     @Autowired
+    MongodbUserRepository mongodbUserRepository;
+
+    @Autowired
     WebTestClient webTestClient;
+
+    @BeforeEach
+    void init() {
+        mongodbUserRepository.deleteAll().block();
+    }
 
     @Nested
     class CreateUserEndpoint {
