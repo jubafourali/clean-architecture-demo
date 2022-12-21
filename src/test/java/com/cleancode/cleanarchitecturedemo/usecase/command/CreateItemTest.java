@@ -42,7 +42,7 @@ public class CreateItemTest {
                 Item item = new Item(name);
                 CreateItem createItem = new CreateItem(itemStorage);
                 Mockito.when(itemStorage.save(any())).thenReturn(Mono.just(item));
-
+                Mockito.when(itemStorage.exists(any())).thenReturn(Mono.just(false));
                 Item response = createItem.invoke(itemInput).block();
 
                 Assertions.assertEquals(item.getName(), response.getName());
