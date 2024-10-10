@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: clean-architecture-demo
+  annotations:
+    github.com/project-slug: jubafourali/clean-architecture-demo
+spec:
+  type: other
+  lifecycle: unknown
