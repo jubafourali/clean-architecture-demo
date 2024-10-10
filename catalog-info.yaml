@@ -5,5 +5,5 @@ metadata:
   description: A demo project following clean architecture principles.
 spec:
   type: service
-  owner: group:engineering-team  # Replace with the actual owner of the component
+  owner: backend  # Replace with the actual owner of the component
   lifecycle: production
