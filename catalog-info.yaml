@@ -2,8 +2,11 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: clean-architecture-demo
-  description: A demo project following clean architecture principles.
+  description: The clean-architecture-demo service
+  annotations:
+    github.com/project-slug: jubafourali/clean-architecture-demo
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: service
-  owner: backend  # Replace with the actual owner of the component
+  owner: group:backend
   lifecycle: production
