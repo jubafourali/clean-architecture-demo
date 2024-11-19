@@ -2,11 +2,18 @@ plugins {
     id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'jacoco'
 }
 String springBootVersion = "2.4.0"
+String jacocoVersion = "0.8.8"
+
 group = 'com.cleancode'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+
+jacoco {
+    toolVersion = jacocoVersion
+}
 
 configurations {
     compileOnly {
@@ -45,4 +52,14 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test // Tests must run before generating the report
+    reports {
+        xml.required.set(true) // For tools like SonarQube
+        csv.required.set(false)
+        html.outputLocation.set(file("$buildDir/reports/jacoco"))
+    }
 }
