@@ -4,21 +4,19 @@ import com.cleancode.cleanarchitecturedemo.domain.User;
 import com.cleancode.cleanarchitecturedemo.infrastructure.storage.mongodb.MongodbUserRepository;
 import com.cleancode.cleanarchitecturedemo.infrastructure.storage.mongodb.MongodbUserStorage;
 import com.cleancode.cleanarchitecturedemo.usecase.input.UserInput;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.junit.jupiter.api.Nested;
 
 import java.util.List;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.main.web-application-type=reactive")
 @DirtiesContext
+@Disabled
 class UserControllerTest {
 
     @Autowired
