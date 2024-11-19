@@ -47,7 +47,3 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: curl -Ls https://coverage.codacy.com/get.sh | bash
-      - name: Publish Coverage to Codacy
-        env:
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        run: ./codacy-coverage-reporter report -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
