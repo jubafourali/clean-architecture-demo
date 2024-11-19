@@ -56,10 +56,11 @@ test {
 }
 
 jacocoTestReport {
-    dependsOn test // Tests must run before generating the report
+    dependsOn test // Tests need to run before generating the report
     reports {
-        xml.required.set(true) // For tools like SonarQube
-        csv.required.set(false)
-        html.outputLocation.set(file("$buildDir/reports/jacoco"))
+        html.required.set(true) // Ensure HTML report is generated
+        html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/test/html"))
+        xml.required.set(true)  // Ensure XML report is generated if needed
+        csv.required.set(false) // CSV report is optional
     }
 }
