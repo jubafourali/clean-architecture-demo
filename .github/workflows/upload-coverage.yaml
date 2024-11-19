@@ -1,39 +1,55 @@
-name: Build and Upload Coverage to Codacy
+name: Build and Test with Code Coverage
 
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout code
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
+      # Set up Java environment
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          java-version: 11
-          distribution: temurin # Specify the Java distribution
-          java-package: jdk
-          architecture: x64
-          check-latest: false
-          server-id: github
-          server-username: ${{ secrets.GITHUB_ACTOR }}
-          server-password: ${{ secrets.GITHUB_TOKEN }}
-          overwrite-settings: true
+          java-version: 11 # Specify your Java version
+          distribution: temurin # Temurin is the default recommended JDK distribution
+          cache: gradle
 
-      - name: Build and test
-        run: mvn clean verify
+      # Cache Gradle dependencies
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
-      - name: Upload Coverage to Codacy
-        run: |
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report \
-              --language Java \
-              --coverage-reports target/site/jacoco/jacoco.xml
-        env:
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      # Build the Gradle project
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
+
+      # Run tests
+      - name: Run tests
+        run: ./gradlew test --no-daemon
+
+      # Generate JaCoCo Report
+      - name: Generate JaCoCo Report
+        run: ./gradlew jacocoTestReport --no-daemon
+
+      # Upload coverage report (optional - for integration with Codacy, CodeClimate, etc.)
+      - name: Upload Coverage Report
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test/html/
