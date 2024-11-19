@@ -41,15 +41,9 @@ jobs:
       # Run tests
       - name: Run tests
         run: ./gradlew test --no-daemon
-
-      # Generate JaCoCo Report
       - name: Generate JaCoCo Report
         run: ./gradlew jacocoTestReport --no-daemon
-
-      # Upload coverage report (optional - for integration with Codacy, CodeClimate, etc.)
-      - name: Upload Coverage Report
-        if: success()
-        uses: actions/upload-artifact@v3
-        with:
-          name: jacoco-report
-          path: build/reports/jacoco/test/html/
+      - name: Download Codacy Coverage Reporter
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run: curl -Ls https://coverage.codacy.com/get.sh | bash

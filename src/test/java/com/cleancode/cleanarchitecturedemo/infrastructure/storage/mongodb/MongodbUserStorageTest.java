@@ -27,6 +27,7 @@ class MongodbUserStorageTest {
         mongodbUserRepository.deleteAll().block();
     }
 
+
     @Test
     void shouldSaveUserDocument() {
         UserDocument userDocument = new UserDocument(UUID.randomUUID(), "Juba");
